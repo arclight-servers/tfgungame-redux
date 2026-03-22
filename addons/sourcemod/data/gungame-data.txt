@@ -259,7 +259,6 @@
 	{
 		"index" "308"
 		"tfclass" "4"
-		"select_override" "1"
 	}
 	
 	"The Loose Cannon"
