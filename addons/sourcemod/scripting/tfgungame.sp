@@ -189,6 +189,7 @@ public void OnPluginStart()
 	FindConVar("mp_respawnwavetime").IntValue = 0;
 	FindConVar("tf_weapon_criticals").IntValue = 0;
 	FindConVar("mp_autoteambalance").IntValue = 1;
+	FindConVar("tf_dropped_weapon_lifetime").IntValue = 0;
 	
 	RegConsoleCmd("gg_help", Command_Help, "Sends a player a help panel");
 	
@@ -860,7 +861,6 @@ void SetPlayerLoadout(int iClient, int iRank)
 	hWeapon.GetAttributeOverride(strAttributes, sizeof(strAttributes));
 	
 	int iWeapon = CreateWeapon(iClient, strClassname, hWeapon.Index, 1, 1, strAttributes);
-	FlagWeaponDontDrop(iWeapon);
 	
 	if (hWeapon.ClipOverride)
 		SetEntData(iWeapon, FindSendPropInfo("CTFWeaponBase", "m_iClip1"), hWeapon.ClipOverride, _, true);
@@ -1030,19 +1030,6 @@ stock int CreateWeapon(int client, char[] sName, int index, int level = 1, int q
 	int entity = TF2Items_GiveNamedItem(client, hWeapon);
 	delete hWeapon;
 	return entity;
-}
-
-void FlagWeaponDontDrop(int iWeapon)
-{
-	// Big thanks to Benoist3012 for this func
-	int iItemOffset = GetEntSendPropOffs(iWeapon, "m_Item", true);
-	if (iItemOffset <= 0) return;
-
-	Address pWeapon = GetEntityAddress(iWeapon);
-	if (pWeapon == Address_Null) return;
-
-	StoreToAddress(view_as<Address>((view_as<int>(pWeapon)) + iItemOffset + 36), 0x23E173A2, NumberType_Int32);
-	SetEntProp(iWeapon, Prop_Send, "m_bValidatedAttachedEntity", 1);
 }
 
 void SetMaxAmmo(int iClient, int iWeapon, int iForceAmmo = -1)
