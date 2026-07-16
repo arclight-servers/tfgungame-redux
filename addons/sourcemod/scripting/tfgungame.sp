@@ -235,9 +235,15 @@ public void OnMapStart()
 {
 	LoadTranslations("tfgungame.phrases");
 	
-	CleanLogicEntities();
-	
 	g_flRoundUnfreezeTime = 0.0;
+}
+
+public void OnConfigsExecuted()
+{
+	// Disabled gamemode plugins are unloaded on the next frame during a map
+	// change, so OnMapStart can still run on the incoming non-GunGame map.
+	// Clean logic entities only after this plugin survives config execution.
+	CleanLogicEntities();
 }
 
 void CleanLogicEntities()
