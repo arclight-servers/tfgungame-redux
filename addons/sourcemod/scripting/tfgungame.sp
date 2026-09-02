@@ -857,7 +857,13 @@ void SetPlayerLoadout(int iClient, int iRank)
 	TF2_RemoveCondition(iClient, TFCond_Taunting);
 	
 	if (TF2_GetPlayerClass(iClient) != eClass)
+	{
 		TF2_SetPlayerClass(iClient, eClass, _, true);
+
+		// This updates the player's hitboxes
+		SetVariantString("");
+		AcceptEntityInput(iClient, "SetCustomModel");
+	}
 
 	SetEntityHealth(iClient, g_iClassMaxHP[view_as<int>(eClass)]);
 	TF2_RemoveAllWeapons(iClient);
