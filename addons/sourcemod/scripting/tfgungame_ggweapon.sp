@@ -157,7 +157,7 @@ public any Native_GGWeaponGetFromSeries(Handle plugin, int numParams)
 	if (idx < GGWeapon.SeriesTotal())
 		return view_as<GGWeapon>(g_hWeaponSeries.Get(idx));
 	else
-		return view_as<GGWeapon>(null);
+		return INVALID_HANDLE;
 }
 
 public any Native_GGWeaponGetFromAll(Handle plugin, int numParams)
