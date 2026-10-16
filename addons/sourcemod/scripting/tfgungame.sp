@@ -66,9 +66,9 @@ stock const int g_iClassMaxHP[view_as<int>(TFClass_Engineer) + 1] =
 enum TFGGSpecialRoundType
 {
 	SpecialRound_None = 0,
-	SpecialRound_Melee = 1,
-	SpecialRound_MeleeToo = 2,
-	SpecialRound_AllCrits = 3,
+	SpecialRound_Melee,
+	//SpecialRound_MeleeToo,
+	SpecialRound_AllCrits,
 	
 	TFGGSRT_COUNT
 };
@@ -77,7 +77,7 @@ stock const char g_strSpecialRoundName[TFGGSRT_COUNT][32] =
 {
 	"None",
 	"Melee Weapons Only",
-	"Melee Weapons Enabled",
+	//"Melee Weapons Enabled",
 	"100% Critical Hits"
 };
 
